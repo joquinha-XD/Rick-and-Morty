@@ -1,43 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <title>Personagem - Rick and Morty</title>
-</head>
-<body>
-  <header class="header">
-    <nav class="navbar conteiner">
-      <a href="../index.html">
-        <img src="../image/logo.svg" alt="Logo Image">
-      </a>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalhes do Personagem</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="character-container">
+      <div id="character-card" class="character-card"></div>
+    </div>
 
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a href="#" class="nav-link">Docs</a>
-        </li>
+    <div class="episodes-container">
+      <h2>Episódios que este personagem aparece:</h2>
+      <ul id="episodes-list"></ul>
+    </div>
 
-        <li class="nav-item">
-          <a href="#" class="nav-link">About</a>
-        </li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link nav-btn">SUPPORT US</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="conteiner">
-    <!-- Container onde o card será inserido -->
-    <section id="character-container"></section>
-  </main>
-
-  <script src="../js/character.js"></script>
-  <script src="../js/episodes.js"></script>
-</body>
+    <script src="../js/character.js"></script>
+  </body>
 </html>

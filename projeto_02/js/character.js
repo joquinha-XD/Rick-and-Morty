@@ -1,73 +1,86 @@
-// Função para descriptografar o ID
 const decryptId = (id) => {
-  return parseInt(id, 36); // Descriptografa o ID (em base 36)
-}
+  return parseInt(id, 36);
+};
 
-// Função para carregar os dados do personagem
-const loadCharacter = async (url, id) => {
+// Função para carregar os detalhes do personagem
+const loadCharacter = async (id) => {
   try {
-    const res = await fetch(`${url}/${id}`);
+    const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
     if (!res.ok) {
       throw new Error("Erro ao carregar o personagem");
     }
-    const data = await res.json();
-    return data;
+    return await res.json();
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-// Função principal que carrega os dados do personagem
+// Função para carregar os episódios do personagem
+const loadEpisodes = async (episodeUrls) => {
+  try {
+    const episodes = await Promise.all(
+      episodeUrls.map(async (url) => {
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error("Erro ao carregar os episódios");
+        }
+        return await res.json();
+      })
+    );
+    return episodes;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Função principal que carrega o personagem e os episódios
 const loadAll = async () => {
-  const urlParams = new URLSearchParams(window.location.search); // Pega os parâmetros da URL
-  const idParam = urlParams.get('id'); // Pega o ID da URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const idParam = urlParams.get("id");
 
   if (!idParam) {
-    // Se não tiver o ID na URL, redireciona para a página inicial
     window.location.href = "../index.html";
-    console.log("ID não encontrado na URL");
     return;
   }
 
-  const idDescrypted = decryptId(idParam); // Descriptografa o ID
-  const baseUrl = `https://rickandmortyapi.com/api/character/`; // URL base para carregar o personagem
+  const idDescrypted = decryptId(idParam);
 
   try {
-    // Carrega os dados do personagem usando a API
-    const character = await loadCharacter(baseUrl, idDescrypted);
-    showCharacterCard(character); // Exibe o card com as informações do personagem
+    const character = await loadCharacter(idDescrypted);
+    showCharacterDetails(character);
+
+    // Carregar os episódios do personagem
+    const episodes = await loadEpisodes(character.episode);
+    showEpisodes(episodes);
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-const showCharacterCard = (character) => {
-  const characterContainer = document.getElementById('character-container'); // Container para o card
+// Função para mostrar os detalhes do personagem
+const showCharacterDetails = (character) => {
+  const detailsContainer = document.getElementById("character-card");
 
-  // Estrutura HTML do card do personagem, mais parecida com a estrutura da página index.html
-  const cardHTML = `
-    <div class="character-box">
-      <img src="${character.image}" alt="${character.name}">
-      <div class="character-info">
-        <h3>${character.name}</h3>
-        <span class="${character.status}">${character.status} - ${character.species}</span>
-
-        <div class="character-location">
-          <span class="location">Location:</span>
-          <a href="${character.location.url}" class="character-link">${character.location.name}</a>
-        </div>
-
-        <div class="character-origin">
-          <span class="origin">Origin:</span>
-          <a href="${character.origin.url}" class="character-link">${character.origin.name}</a>
-        </div>
-      </div>
-    </div>
+  detailsContainer.innerHTML = `
+    <img src="${character.image}" alt="${character.name}" />
+    <h3>${character.name}</h3>
+    <p><strong>Status:</strong> ${character.status}</p>
+    <p><strong>Espécie:</strong> ${character.species}</p>
+    <p><strong>Gênero:</strong> ${character.gender}</p>
+    <p><strong>Origem:</strong> ${character.origin.name}</p>
+    <p><strong>Localização:</strong> ${character.location.name}</p>
   `;
+};
 
-  characterContainer.innerHTML = cardHTML; // Adiciona o card ao container na página
-}
+// Função para mostrar a lista de episódios
+const showEpisodes = (episodes) => {
+  const episodesList = document.getElementById("episodes-list");
 
+  episodes.forEach((episode) => {
+    const li = document.createElement("li");
+    li.textContent = `${episode.name} - ${episode.air_date}`;
+    episodesList.appendChild(li);
+  });
+};
 
-
-loadAll(); // Executa a função de carregar os dados
+loadAll();

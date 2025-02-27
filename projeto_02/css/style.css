@@ -100,7 +100,7 @@ body {
 }
 
 .character-box:hover {
-  transform: none; /* Retirado o efeito de zoom */
+  transform: none;
 }
 
 .character-box img {
@@ -113,7 +113,7 @@ body {
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: .4rem;
+  gap: 0.4rem;
   flex: 1;
 }
 
@@ -172,36 +172,36 @@ body {
 /* Ajustando a centralização do card individual na página character.html */
 .character-container {
   display: flex;
-  justify-content: center;  /* Centraliza o card horizontalmente */
-  align-items: center;      /* Centraliza o card verticalmente */
-  height: 100vh;            /* Usa a altura total da tela */
-  margin-top: 0;            /* Remove qualquer margem superior */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 90vh; /* Garante que ocupa 100% da tela */
+  width: 100%; /* Ocupa toda a largura */
 }
 
 .character-card {
   background-color: var(--gray-700);
   border-radius: 8px;
   width: 70%; /* Ajuste da largura para 70% da tela */
-  max-width: 900px; /* Máximo de 900px de largura */
+  max-width: 600px; /* Máximo de 600px de largura */
   display: flex;
+  flex-direction: column; /* Itens em coluna */
+  align-items: center; /* Alinha os itens no centro */
   gap: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  justify-content: space-between;
+  text-align: center; /* Centraliza o texto dentro do card */
 }
 
 .character-card img {
-  width: 35%;  /* A imagem ocupa 35% da largura do card */
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
+  width: 60%; /* Ajuste para melhor encaixe */
+  border-radius: 8px;
 }
 
 .character-card .character-info {
-  padding-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: .4rem;
-  flex: 1;
+  align-items: center; /* Centraliza o texto */
+  gap: 0.6rem;
 }
 
 .character-card h3 {
