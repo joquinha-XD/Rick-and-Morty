@@ -1,10 +1,10 @@
-const page = 4;
+const page = 9;
 const baseUrl = "https://rickandmortyapi.com/api";
 
 const loadCharacter = async () => {
   const res = await fetch(`${baseUrl}/character?page=${page}`);
   const data = await res.json();
-  return { results: data.results.slice(3, 9) };
+  return { results: data.results.slice(1, 9) };
 };
 
 const loadAllWithPromiseAll = async () => {

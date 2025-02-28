@@ -51,7 +51,7 @@ const loadAll = async () => {
 
     // Carregar os episódios do personagem
     const episodes = await loadEpisodes(character.episode);
-    showEpisodes(episodes);
+    listarepisodios(episodes);
   } catch (error) {
     console.log(error);
   }
@@ -63,8 +63,11 @@ const showCharacterDetails = (character) => {
 
   detailsContainer.innerHTML = `
     <img src="${character.image}" alt="${character.name}" />
-    <h3>${character.name}</h3>
-    <p><strong>Status:</strong> ${character.status}</p>
+    <h2>${character.name}</h2>
+    <p class="status">
+      <strong>Status:</strong>
+      <span class="${character.status}"></span> ${character.status}
+    </p>
     <p><strong>Espécie:</strong> ${character.species}</p>
     <p><strong>Gênero:</strong> ${character.gender}</p>
     <p><strong>Origem:</strong> ${character.origin.name}</p>
@@ -72,14 +75,16 @@ const showCharacterDetails = (character) => {
   `;
 };
 
+
 // Função para mostrar a lista de episódios
-const showEpisodes = (episodes) => {
-  const episodesList = document.getElementById("episodes-list");
+const listarepisodios = (episodes) => {
+  const episodeslist = document.getElementById("list-episode");
 
   episodes.forEach((episode) => {
     const li = document.createElement("li");
+    li.className = "episodes-list"
     li.textContent = `${episode.name} - ${episode.air_date}`;
-    episodesList.appendChild(li);
+    episodeslist.appendChild(li);
   });
 };
 
